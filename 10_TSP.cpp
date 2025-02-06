@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int totalcost(int m,int pos,int n,vector<vector<int>> &cost){
+int totalcost(int mask,int pos,int n,vector<vector<int>> &cost){
     // Base case: if all cities are visited, return the 
    // cost to return to the starting city (0)
-    if(m==(1<<n)-1){
+    if(mask==(1<<n)-1){
         return cost[pos][0];
     }
 
@@ -12,9 +12,9 @@ int totalcost(int m,int pos,int n,vector<vector<int>> &cost){
     // Try visiting every city that has not been visited yet
     for(int i=0;i<n;i++){
         //check visited or not
-        if((m & (1<<i))==0){
+        if((mask & (1<<i))==0){
             ans=min(ans,cost[pos][i]+ 
-            totalcost((m | (1<<i)),i,n,cost));
+            totalcost((mask | (1<<i)),i,n,cost));
         }
     }
     return ans;
