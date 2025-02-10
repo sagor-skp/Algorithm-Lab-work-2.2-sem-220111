@@ -12,17 +12,18 @@ void heapify(vector<int>& arr,int n,int i){
     }
     if(largest!=i){
         swap(arr[i],arr[largest]);
-        heapify(arr,n,largest);
+        heapify(arr,n,largest);//after max heap porer portion see 131 to 144
     }
 }
 void heapsort(vector<int>& arr){
     int n=arr.size();
-    for(int i=n/2-1;i>0;i--){
+    //build max heap
+    for(int i=n/2-1;i>=0;i--){
         heapify(arr,n,i);
     }
     for(int i=n-1;i>0;i--){
         swap(arr[0],arr[i]);
-        heapify(arr,i,0);
+        heapify(arr,i,0);//heapyfi reduce heap ***i not n
     }
 }
 void print(vector<int>& arr){
