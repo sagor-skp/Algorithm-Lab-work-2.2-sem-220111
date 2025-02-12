@@ -85,7 +85,7 @@ int main(){
     cout<<ans;
 }*/
 
-//heapsort
+/*//heapsort
 #include<bits/stdc++.h>
 using namespace std;
 void heapyfi(vector<int>&arr,int n,int i){
@@ -128,4 +128,63 @@ int main(){
     heapsort(arr);
     cout<<"sorted array is \n";
     print(arr);
+}*/
+
+/*//dfs
+#include<bits/stdc++.h>
+using namespace std;
+const int N=1e5+10;
+vector<int>g[N];
+bool vis[N];
+void dfs(int vertex){
+    cout<<vertex<<" ";
+    vis[vertex]=true;
+    for(auto child:g[vertex]){
+        if(vis[child]) continue;
+        dfs(child);
+    }
 }
+int main(){
+    int n,m;
+    cin>>n>>m;
+    for(int i=0;i<m;i++){
+        int v1,v2;
+        cin>>v1>>v2;
+        g[v1].push_back(v2);
+        g[v2].push_back(v1);
+    }
+    dfs(1);
+}*/
+//bfs
+/*#include<bits/stdc++.h>
+using namespace std;
+const int N=1e5+10;
+vector<int>g[N];
+bool vis[N];
+void bfs(int vertex){
+    queue<int>q;
+    q.push(vertex);
+    vis[vertex]=true;
+    while(!q.empty()){
+        int cur_v=q.front();
+        q.pop();
+        cout<<cur_v<<" ";
+        for(auto child:g[cur_v]){
+            if(!vis[child]){
+                q.push(child);
+                vis[child]=true;
+            }
+        }
+    }
+ }
+int main(){
+    int n;
+    cin>>n;
+    for(int i=0;i<n-1;i++){
+        int x,y;
+        cin>>x>>y;
+        g[x].push_back(y);
+        g[y].push_back(x);
+    }
+    bfs(1);
+}*/
