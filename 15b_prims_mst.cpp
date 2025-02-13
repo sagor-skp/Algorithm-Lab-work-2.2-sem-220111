@@ -24,16 +24,19 @@ void findmst(int graph[v][v]){
         int u=selectminvertex(value,setmst);
         setmst[u]=true;
         for(int j=0;j<v;j++){
-            if(graph[u][j]!=0 && setmst[j]==false && graph[u][j]<value[j]){
+            if(graph[u][j]!=0 && setmst[j]==false && graph[u][j]<value[j]){//techdose 28.24min explanation
                 value[j]=graph[u][j];
                 parent[j]=u;
             }
         }
     }
     //print
+    int totalweight=0;
     for(int i=1;i<v;i++){
         cout<<"u->v: "<<parent[i]<<"->"<<i<<" wt = "<<graph[parent[i]][i]<<endl;
+        totalweight+=graph[parent[i]][i];
     }
+    cout<<"Totalweight= "<<totalweight;
 }
 int main(){
     int graph[v][v]={{0,4,6,0,0,0},
