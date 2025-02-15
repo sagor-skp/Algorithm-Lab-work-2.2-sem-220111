@@ -1,54 +1,36 @@
 #include<bits/stdc++.h>
 using namespace std;
-struct item{
-    int profit,weight;
-    //constructor
-    item(int profit,int weight){
-        this->profit=profit;
-        this->weight=weight;
-    }
-};
-static bool cmp(struct item a,struct item b){
-    double r1=(double)a.profit/(double)a.weight;
-    double r2=(double)b.profit/(double)b.weight;
-    return r1>r2;
-}
-double fractionalnapsac(int w,struct item arr[],int n){
-    sort(arr,arr+n,cmp);//decreasing order profit/weight
-    double finalvalue=0;
+double maxprofit(vector<pair<int,int>>&item,int n,int w){
+    sort(item.begin(),item.end(),[](pair<int,int>a,pair<int,int>b){
+        return (double)a.second/a.first>(double)b.second/b.first;
+    });
+    double totalprofit=0.0;
     for(int i=0;i<n;i++){
-        if(arr[i].weight<w){
-            w-=arr[i].weight;
-            finalvalue+=arr[i].profit;
+        int weight=item[i].first;
+        int profit=item[i].second;
+        if(w>weight){
+            totalprofit+=profit;
+            w-=weight;
         }
         else{
-            finalvalue+=((double)w/(double)arr[i].weight)*arr[i].profit;
+            totalprofit+=(double)w/weight*profit;
             break;
         }
     }
-    return finalvalue;
+    return totalprofit;
 }
-int main()
-{
-    int w=50;
-    item arr[]={{60,10},{100,20},{120,30}};
-    int n=sizeof(arr)/sizeof(arr[0]);
-    cout<<fractionalnapsac(w,arr,n);
-    return 0;
-}
-/*
-The cmp function is a comparison function used in the sort 
-function to sort items based on their profit-to-weight ratio in descending order
-static bool cmp(struct Item a, struct Item b) {
-    double r1 = (double)a.profit / (double)a.weight;
-    double r2 = (double)b.profit / (double)b.weight;
-    return r1 > r2;
-}
-It calculates the profit-to-weight ratio (profit/weight) for two items, a and b.
-If the ratio of a is greater than that of b, it returns true, meaning a should come before b in sorted order.
-Otherwise, b comes first.
+int main(){
+    cout<<"Enter number of item :";
+    int n;
+    cin>>n;
+    vector<pair<int,int>>item(n);
+    cout<<"every item weight and profit : ";
+    for(int i=0;i<n;i++){
+        cin>>item[i].first>>item[i].second;
+    }
+    cout<<"Enter weifgt: ";
+    int w;
+    cin>>w;
+    cout<<"MAXimum profit="<<maxprofit(item,n,w)<<endl;
 
-60/10 = 6.0  →  100/20 = 5.0  →  120/30 = 4.0
-(Item 1)      (Item 2)         (Item 3)
-
-*/
+}
