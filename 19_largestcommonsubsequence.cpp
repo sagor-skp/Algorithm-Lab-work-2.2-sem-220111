@@ -4,6 +4,9 @@ int lcs(string& s1,string& s2,int ind1,int ind2,vector<vector<int>>&dp){
     if(ind1<0 || ind2<0){
         return 0;
     }
+    //If the result for the subproblem is already
+    // calculated and stored in dp[ind1][ind2],
+    // return it directly to avoid redundant calculations.
     if(dp[ind1][ind2]!=-1){
         return dp[ind1][ind2];
     }
