@@ -4,6 +4,7 @@ using namespace std;
 const int N=1e5+10;
 int parent[N];
 int size[N];
+//make independent node
 void make(int v){
     parent[v]=v;
     //single node itself parent
@@ -35,7 +36,8 @@ int main(){
     for(int i=0;i<m;i++){
         int u,v,wt;
         cin>>u>>v>>wt;
-        edge.push_back({wt,{u,v}});
+        edge.push_back({wt,{u,v}});//single element
+        //sort hoi pair er first element er basis a
     }
     sort(edge.begin(),edge.end());
 

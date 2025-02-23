@@ -10,7 +10,7 @@ int solve(vector<pair<int,int>>&item,int n,int w){
                 dp[i][j]=dp[i-1][j];//cannot take
             }
             else{
-                dp[i][j]=max(dp[i-1][j],profit+dp[i-1][j-weight]);
+                dp[i][j]=max(dp[i-1][j],profit+dp[i-1][j-weight]);//take or not take
             }
 
         }

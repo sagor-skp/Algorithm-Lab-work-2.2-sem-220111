@@ -27,7 +27,7 @@ void bfs(int source){
 }
 int main(){
     int n;
-    cin>>n;//node
+    cin>>n;//node,not take edge because edge fix=n-1
     for(int i=0;i<n-1;i++){//n-1 edge
         int x,y;
         cin>>x>>y;
@@ -48,7 +48,7 @@ Edges: 1-2, 1-3, 2-4
 g[x].push_back(y);
 g[y].push_back(x);
 
-represents adding an undirected edge between two nodes x and y in the adjacency list representation of a graph. Here’s how it works:
+represents adding an undirected edge between two nodes x and y in the adjacency list representation of a graph. Hereï¿½s how it works:
 
 Explanation:
 g[x] is the list of neighbors for node x.

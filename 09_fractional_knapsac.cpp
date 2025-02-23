@@ -24,7 +24,7 @@ int main(){
     int n;
     cin>>n;
     vector<pair<int,int>>item(n);
-    cout<<"every item weight and profit : ";
+    cout<<"Enter every item weight and profit : "<<endl;
     for(int i=0;i<n;i++){
         cin>>item[i].first>>item[i].second;
     }
@@ -34,3 +34,9 @@ int main(){
     cout<<"MAXimum profit="<<maxprofit(item,n,w)<<endl;
 
 }
+/*
+sort(item.begin(),item.end(),[](pair<int,int>a,pair<int,int>b){
+        return (double)a.second/a.first>(double)b.second/b.first;
+    });
+    sort kore decending order a
+*/

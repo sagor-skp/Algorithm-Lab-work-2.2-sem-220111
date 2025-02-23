@@ -1,5 +1,40 @@
 #include<bits/stdc++.h>
 using namespace std;
+int lcs(string s1,string s2){
+    int n=s1.size();
+    int m=s2.size();
+    vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            if(s1[i-1]==s2[j-1]){
+                dp[i][j]=1+dp[i-1][j-1];
+            }
+            else{
+                dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+            }
+        }
+    }
+    return dp[n][m];
+}
+int main(){
+    cout<<"Enter two string:"<<endl;
+    string s1;
+    string s2;
+    cin>>s1>>s2;
+    
+    cout<<"the length of lcs : "<<lcs(s1,s2)<<endl;
+    return 0;
+}
+/*
+dp table
+i/j	0	C	E	D
+0	0	0	0	0
+A	0	0	0	0
+C	0	1	1	1
+D	0	1	1	2
+*/
+/*#include<bits/stdc++.h>
+using namespace std;
 int lcs(string& s1,string& s2,int ind1,int ind2,vector<vector<int>>&dp){
     if(ind1<0 || ind2<0){
         return 0;
@@ -26,4 +61,4 @@ int main(){
     int m=s2.size();
     vector<vector<int>>dp(n,vector<int>(m,-1));
     cout<<"The length of lcs is "<<lcs(s1,s2,n-1,m-1,dp);
-}
+} */

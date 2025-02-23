@@ -1,102 +1,54 @@
-
-#include <iostream>
+#include<bits/stdc++.h>
 using namespace std;
-
-
-void merge(int arr[], int left, int mid, int right)
-{
-    int n1 = mid - left + 1;
-    int n2 = right - mid;
-
-
-    int leftArr[n1], rightArr[n2];
-
-
-    for (int i = 0; i < n1; i++)
-        leftArr[i] = arr[left + i];
-    for (int i = 0; i < n2; i++)
-        rightArr[i] = arr[mid + 1 + i];
-
-
-    int i = 0, j = 0, k = left;
-    while (i < n1 && j < n2)
-    {
-        if (leftArr[i] <= rightArr[j])
-        {
-            arr[k] = leftArr[i];
-            i++;
+void merge(vector<int>&arr,int low,int mid,int high){
+    vector<int>temp;
+    int left=low;
+    int right=mid+1;
+    while(left<=mid && right<=high){
+       
+        if(arr[left]<=arr[right]){
+            temp.push_back(arr[left]);
+            left++;
         }
-        else
-        {
-            arr[k] = rightArr[j];
-            j++;
+        else{
+            temp.push_back(arr[right]);
+            right++;
         }
-        k++;
     }
-
-
-    while (i < n1)
-    {
-        arr[k] = leftArr[i];
-        i++;
-        k++;
+    //[1,2,3] [1 2 3 4,5] for this condition handel
+    while(left<=mid){
+        temp.push_back(arr[left]);
+        left++;
     }
-
-    while (j < n2)
-    {
-        arr[k] = rightArr[j];
-        j++;
-        k++;
+    while(right<=high){
+        temp.push_back(arr[right]);
+        right++;
+    }
+    // transfering all elements from temporary to arr //
+    for(int i=low;i<=high;i++){
+        arr[i]=temp[i-low];
     }
 }
+void mergesort(vector<int>&arr,int low,int high){
+    if(low>=high) return;
+    int mid=(low+high)/2;
+    mergesort(arr,low,mid);
+    mergesort(arr,mid+1,high);
 
-void mergeSort(int arr[], int left, int right)
-{
-    if (left < right)
-    {
-
-        int mid = left + (right - left) / 2;
-
-
-        mergeSort(arr, left, mid);
-        mergeSort(arr, mid + 1, right);
-
-
-        merge(arr, left, mid, right);
-    }
+    merge(arr,low,mid,high);
 }
-
-
-void printArray(int arr[], int size)
-{
-    for (int i = 0; i < size; i++)
-    {
-        cout << arr[i] << " ";
-    }
-    cout << endl;
-}
-
-int main()
-{
+int main(){
     int n;
-    cout << "Enter the number of elements: ";
-    cin >> n;
-
-    int arr[n];
-    cout << "Enter the elements: ";
-    for (int i = 0; i < n; i++)
-    {
-        cin >> arr[i];
+    cout<<"Enter number of element:"<<endl;
+    cin>>n;
+    vector<int>arr(n);
+    cout<<"Enter element :"<<endl;
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
     }
-
-    cout << "Original array: ";
-    printArray(arr, n);
-
-
-    mergeSort(arr, 0, n - 1);
-
-    cout << "Sorted array: ";
-    printArray(arr, n);
-
-    return 0;
+    mergesort(arr,0,n-1);
+    cout<<"Sorted array "<<endl;
+    for(int i=0;i<n;i++){
+        cout<<arr[i]<<" ";
+    }
 }
