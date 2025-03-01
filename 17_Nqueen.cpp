@@ -161,7 +161,7 @@ int main() {
     for (int i = 0; i < ans.size(); i++) {
         cout << "Arrangement " << i + 1 << ":\n";
         for (int j = 0; j < ans[0].size(); j++) {
-            cout << ans[i][j] << endl;
+            cout << ans[i][j] <<endl;
         }
         cout << endl;
     }

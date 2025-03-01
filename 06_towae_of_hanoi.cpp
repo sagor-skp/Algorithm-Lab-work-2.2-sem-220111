@@ -5,7 +5,7 @@ void tower(int n,char s,char h,char d){
     tower(n-1,s,d,h);// Move n-1 disks from source to helper pole
     cout<<"Move disk from "<<s<<" to "<<d<<endl;
     tower(n-1,h,s,d);// Move n-1 disks from helper to destination pole
-    return;
+    //return;
 }
 int main(){
     int n;

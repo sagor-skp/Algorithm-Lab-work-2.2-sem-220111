@@ -13,7 +13,7 @@ double maxprofit(vector<pair<int,int>>&item,int n,int w){
             w-=weight;
         }
         else{
-            totalprofit+=(double)w/weight*profit;
+            totalprofit+=(double)w/weight*profit;// **
             break;
         }
     }
@@ -39,4 +39,8 @@ sort(item.begin(),item.end(),[](pair<int,int>a,pair<int,int>b){
         return (double)a.second/a.first>(double)b.second/b.first;
     });
     sort kore decending order a
+     item.begin(), item.end() → Sorts the entire vector
+     [](pair<int, int> a, pair<int, int> b) { ... } → Lambda function as comparator
+     (double)a.second / a.first > (double)b.second / b.first → Sort by descending order of ratio
+
 */
