@@ -1113,7 +1113,7 @@ int main() {
     cout << "L Time: " << duration<double, micro>(e1 - s1).count() << " µs\n";
     cout << "B Time: " << duration<double, micro>(e2 - s2).count() << " µs\n";
 }*/
-#include <bits/stdc++.h>
+/*#include <bits/stdc++.h>
 using namespace std;
 using namespace chrono;
 
@@ -1150,4 +1150,580 @@ int main() {
     cout<<"L time "<<duration<double,micro>(e1-s1).count()<<endl;
     cout<<"B time "<<duration<double,micro>(e2-s2).count()<<endl;
     
+}*/
+/*#include<iostream>
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+int solve(string s1,string s2){
+    int n=s1.size();
+    int m=s2.size();
+    vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            if(s1[i-1]==s2[j-1]){
+                dp[i][j]=1+dp[i-1][j-1];
+            }
+            else{
+                dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+            }
+        }
+    }
+    return dp[n][m];
+}
+int main()
+{
+    string s1,s2;
+    cout<<"Enter two string:"<<endl;
+    cin>>s1>>s2;
+    cout<<"Longest common subsequence:"<<solve(s1,s2);
+    return 0;
+}*/
+/*#include<iostream>
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+int solve( vector<pair<int,int>>&item,int n,int w){
+    vector<vector<int>>dp(n+1,vector<int>(w+1,0));
+    for(int i=1;i<=n;i++){
+        int weight=item[i-1].first;
+        int profit=item[i-1].second;
+        for(int j=0;j<=w;j++){
+            if(j<weight){
+                dp[i][j]=dp[i-1][j];
+            }
+            else{
+                dp[i][j]=max(dp[i-1][j],profit+dp[i-1][j-weight]);
+            }
+        }
+    }
+    return dp[n][w];
+}
+int main()
+{
+    int n;
+    cout<<"Enter number of item:"<<endl;
+    cin>>n;
+    vector<pair<int,int>>item(n);
+    cout<<"Enter weigth and profit:"<<endl;
+    for(int i=0;i<n;i++){
+        cin>>item[i].first>>item[i].second;
+    }
+    int wt;
+    cout<<"Enter max capacity :"<<endl;
+    cin>>wt;
+    cout<<"MAximum profit:"<<solve(item,n,wt);
+    return 0;
+}*/
+/*#include<iostream>
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+void merg(vector<int>&arr,int low,int mid,int high){
+    vector<int>temp;
+    int i=low;
+    int j=mid+1;
+    while(i<=mid && j<=high){
+        if(arr[i]<=arr[j]){
+            temp.push_back(arr[i]);
+            i++;
+        }
+        else{
+            temp.push_back(arr[j]);
+            j++;
+        }
+    }
+    while(i<=mid){
+        temp.push_back(arr[i]);
+        i++;
+    }
+    while(j<=high){
+        temp.push_back(arr[j]);
+        j++;
+    }
+    for(int i=low;i<=high;i++){
+        arr[i]=temp[i-low];
+    }
+}
+void mergesort(vector<int>&arr,int low,int high){
+    int mid=(low+high)/2;
+    if(low>=high) return;
+    mergesort(arr,low,mid);
+    mergesort(arr,mid+1,high);
+    merg(arr,low,mid,high);
+
+}
+int main()
+{
+    int n;
+    cout<<"Enter number"<<endl;
+    cin>>n;
+    cout<<"Enter array element"<<endl;
+    vector<int>arr(n);
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    mergesort(arr,0,n-1);
+    for(int i=0;i<n;i++){
+        cout<<arr[i]<<" ";
+    }
+    return 0;
+}*/
+/*#include<iostream>
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+void heapyfi(vector<int>&arr,int n,int i){
+    int largest=i;
+    int l=2*i+1;
+    int r=2*i+2;
+    if(l<n && arr[largest]<arr[l]){
+        largest=l;
+    }
+    if(r<n && arr[largest]<arr[r]){
+        largest=r;
+    }
+    if(i!=largest){
+        swap(arr[i],arr[largest]);
+        heapyfi(arr,n,largest);
+    }
+
+}
+void heap(vector<int>&arr,int n){
+    for(int i=n/2-1;i>=0;i--){
+        heapyfi(arr,n,i);
+    }
+    for(int i=n-1;i>0;i--){
+        swap(arr[0],arr[i]);
+        heapyfi(arr,i,0);
+    }
+}
+int main()
+{
+    int n;
+    cout<<"Enter number"<<endl;
+    cin>>n;
+    cout<<"Enter array element"<<endl;
+    vector<int>arr(n);
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    heap(arr,n);
+    for(int i=0;i<n;i++){
+        cout<<arr[i]<<" ";
+    }
+    return 0;
+}*/
+/*#include<iostream>
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+int findpi(vector<int>&arr,int low,int high){
+    int pivot=arr[low];
+    int i=low+1;
+    int j=high;
+    while(true){
+        while(i<=high && arr[i]<=pivot){
+            i++;
+        }
+        while(j>=low && arr[j]>pivot){
+            j--;
+        }
+        if(i>j)break;
+        swap(arr[i],arr[j]);
+    }
+    swap(arr[j],arr[low]);
+    return j;
+}
+void quick(vector<int>&arr,int low,int high){
+    if(low<high){
+        int pi=findpi(arr,low,high);
+        quick(arr,low,pi-1);
+        quick(arr,pi+1,high);
+    }
+}
+int main()
+{
+    int n;
+    cout<<"Enter number"<<endl;
+    cin>>n;
+    cout<<"Enter array element"<<endl;
+    vector<int>arr(n);
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    quick(arr,0,n-1);
+    for(int i=0;i<n;i++){
+        cout<<arr[i]<<" ";
+    }
+    return 0;
+}*/
+/*
+#include<iostream>
+#include<bits/stdc++.h>
+
+using namespace std;
+const int N=1e5+10;
+vector<vector<int>>g(N);
+bool vis[N];//bool array by default false
+void dfs(int source){
+    cout<<source<<" ";
+    vis[source]=true;
+    for(auto &child:g[source]){
+        if(vis[child]==true) continue;
+        dfs(child);
+    }
+}
+int main()
+{
+    int n,e;
+    cout<<"Enter number of node and edge"<<endl;
+    cin>>n>>e;
+    for(int i=0;i<e;i++){
+        int x,y;
+        cin>>x>>y;
+        g[x].push_back(y);
+        g[y].push_back(x);
+        
+    }
+    //dfs(1);
+    int s;
+    cout<<"Enter source "<<endl;
+    cin>>s;
+    dfs(s);
+    return 0;
+}*/
+/*#include<iostream>
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+const int N=1e5+10;
+vector<vector<int>>g(N);
+bool vis[N];
+void bfs(int source){
+    queue<int>q;
+    q.push(source);
+    vis[source]=true;
+    while(!q.empty()){
+        int cur_v=q.front();
+        cout<<cur_v<<" ";
+        q.pop();
+        for(auto &child:g[cur_v]){
+            if(vis[child])continue;
+            q.push(child);
+            vis[child]=true;
+        }
+    }
+}
+int main()
+{
+    int n;
+    cout<<"Enter number of node"<<endl;
+    cin>>n;
+    for(int i=0;i<n-1;i++){
+        int x,y;
+        cin>>x>>y;
+        g[x].push_back(y);
+        g[y].push_back(x);
+    }
+    int s;
+    cout<<"Enter source "<<endl;
+    cin>>s;
+    bfs(s);
+    return 0;
+}*/
+/*#include<iostream>
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+void solve(int col,vector<string>&board,vector<vector<string>>&ans,vector<int>&leftrow,
+    vector<int>&upperdiagonal,vector<int>&lowerdiadonal,int n){
+        if(col==n){
+            ans.push_back(board);
+            return;
+        }
+        for(int row=0;row<n;row++){
+            if(leftrow[row]==0 && upperdiagonal[n-1+col-row]==0 && lowerdiadonal[row+col]==0){
+                board[row][col]='Q';
+                leftrow[row]=1;
+                upperdiagonal[n-1+col-row]=1;
+                lowerdiadonal[row+col]=1;
+                solve(col+1,board,ans,leftrow,upperdiagonal,lowerdiadonal,n);
+                board[row][col]='.';
+                leftrow[row]=0;
+                upperdiagonal[n-1+col-row]=0;
+                lowerdiadonal[row+col]=0;
+            }
+        }
+    }
+
+vector<vector<string>> nqueen(int n){
+    vector<vector<string>>ans;
+    vector<string>board(n,string(n,'.'));
+    vector<int>leftrow(n,0),upperdiagonal(2*n-1,0),lowerdiadonal(2*n-1,0);
+    solve(0,board,ans,leftrow,upperdiagonal,lowerdiadonal,n);
+    return ans;//** */
+// }
+// int main()
+// {
+//     int n;
+//     cout<<"Enter number of queen:"<<endl;
+//     cin>>n;
+//     vector<vector<string>>ans=nqueen(n);
+//     for(int i=0;i<ans.size();i++){
+//         cout<<"arrangement "<<i+1<<endl;
+//         for(int j=0;j<ans[0].size();j++){
+//             cout<<ans[i][j]<<endl;
+//         }
+//     }
+//     return 0;
+// }
+// */
+// */
+
+/*#include<bits/stdc++.h>
+using namespace std;
+vector<int> dijkstra(vector<vector<pair<int,int>>>adj,int n,int src){
+    vector<int>distarr(n,INT_MAX);
+    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+    distarr[src]=0;
+    pq.push({0,src});
+
+    while(!pq.empty()){
+        int dis=pq.top().first;
+        int node=pq.top().second;
+        pq.pop();
+        for(auto child:adj[node]){
+            int edgenode=child.first;
+            int edgeweight=child.second;
+            if(dis+edgeweight<distarr[edgenode]){
+                distarr[edgenode]=dis+edgeweight;
+                pq.push({distarr[edgenode],edgenode});
+            }
+        }
+    }
+    return distarr;
+}
+int main(){
+    int n,e;
+    cout<<"Enter node weight:"<<endl;
+    cin>>n>>e;
+    vector<vector<pair<int,int>>>adj(n);
+    cout<<"Enter node  node weight:"<<endl;
+    for(int i=0;i<e;i++){
+        int u,v,w;
+        cin>>u>>v>>w;
+        adj[u].push_back({v,w});
+        adj[v].push_back({u,w});
+
+    }
+    int src;
+    cout<<"Enter source:"<<endl;
+    cin>>src;
+    vector<int>ans=dijkstra(adj,n,src);
+    for(int i=n-1;i<n;i++){
+        cout<<0<<"->"<<i<<"->"<<ans[i]<<endl;
+    }
+    return 0;
+}*/
+/*#include<iostream>
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+int solve(vector<pair<int,int>>&item,int n,int w){
+    vector<vector<int>>dp(n+1,vector<int>(w+1,0));
+    for(int i=1;i<=n;i++){
+        int weight=item[i-1].first;
+        int profit=item[i-1].second;
+        for(int j=0;j<=w;j++){
+            if(j<weight){
+                dp[i][j]=dp[i-1][j];
+            }
+            else{
+                dp[i][j]=max(dp[i-1][j],profit+dp[i-1][j-weight]);
+            }
+        }
+    }
+    return dp[n][w];
+}
+int main()
+{
+    int n;
+    cout<<"Enter number of item "<<endl;
+    cin>>n;
+    vector<pair<int,int>>item(n);
+    cout<<"Enter weight profit of item "<<endl;
+    for(int i=0;i<n;i++){
+        cin>>item[i].first>>item[i].second;
+    }
+    cout<<"Enter maximum capacity "<<endl;
+    int w;
+    cin>>w;
+    cout<<"MAximun profit:"<<solve(item,n,w);
+    return 0;
+}*/
+/*#include<iostream>
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+int solve(vector<pair<int,int>>&item,int n,int w){
+    sort(item.begin(),item.end(),[](pair<int,int>a,pair<int,int>b){
+        return (double)a.second/a.first>(double)b.second/b.first;
+    });
+    double maxprofit=0.0;
+    for(auto it:item){
+        int weight=it.first;
+        int profit=it.second;
+        if(weight<w){
+            maxprofit+=profit;
+            w-=weight;
+        }
+        else{
+            maxprofit+=(double)w/weight*profit;
+            break;
+        }
+    }
+    return maxprofit;
+}
+int main()
+{
+    int n;
+    cout<<"Enter number of item "<<endl;
+    cin>>n;
+    vector<pair<int,int>>item(n);
+    cout<<"Enter weight profit of item "<<endl;
+    for(int i=0;i<n;i++){
+        cin>>item[i].first>>item[i].second;
+    }
+    cout<<"Enter maximum capacity "<<endl;
+    int w;
+    cin>>w;
+    cout<<"MAximun profit:"<<solve(item,n,w);
+    return 0;
+}*/
+/*#include<iostream>
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+void solve(int n,char s,char h,char d){
+    if(n==0)return;
+    solve(n-1,s,d,h);
+    cout<<"move "<<s<<" to "<<d<<endl;
+    solve(n-1,h,s,d);
+}
+int main()
+{
+    int n;
+    cout<<"Enter number of ring"<<endl;
+    cin>>n;
+    solve(n,'A','B','C');
+    return 0;
+}*/
+
+/*#include<bits/stdc++.h>
+using namespace std;
+int lcs(string s1,string s2){
+    int n=s1.size();
+    int m=s2.size();
+    vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            if(s1[i-1]==s2[j-1]){
+                dp[i][j]=1+dp[i-1][j-1];
+            }
+            else{
+                dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+            }
+        }
+    }
+    return dp[n][m];
+}
+int main(){
+    cout<<"Enter two string:"<<endl;
+    string s1;
+    string s2;
+    cin>>s1>>s2;
+    
+    cout<<"the length of lcs : "<<lcs(s1,s2)<<endl;
+    return 0;
+}*/
+/*#include<iostream>
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+int tsp(vector<vector<int>>&graph,int n){
+    vector<int>tnode;
+    for(int i=1;i<n;i++){
+        tnode.push_back(i);
+    }
+    int mincost=INT_MAX;
+    do{
+        int curnode=0;
+        int curcost=0;
+        for(int i=0;i<tnode.size();i++){
+            curcost+=graph[curnode][tnode[i]];
+            curnode=tnode[i];
+        }
+        curcost+=graph[curnode][0];
+        mincost=min(mincost,curcost);
+    }while(next_permutation(tnode.begin(),tnode.end()));
+    return mincost;
+}
+int main()
+{
+    int n;
+    cout<<"Enter city number "<<endl;
+    cin>>n;
+    vector<vector<int>>graph(n,vector<int>(n));
+    cout<<"Enter cost of matrix:"<<endl;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cin>>graph[i][j];
+        }
+    }
+    cout<<"minimum cost of tsp = "<<tsp(graph,n);
+    return 0;
+}*/
+#include<bits/stdc++.h>
+using namespace std;
+vector<int> solve(vector<vector<pair<int,int>>>&adj,int n,int src){
+    vector<int>distarr(n,INT_MAX);
+    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+    distarr[src]=0;
+    pq.push({0,src});
+    while(!pq.empty()){
+        int dis=pq.top().first;
+        int node=pq.top().second;
+        pq.pop();//** */
+        for(auto child:adj[node]){
+            int adjnode=child.first;
+            int adjweight=child.second;
+            if(dis+adjweight<distarr[adjnode]){
+                distarr[adjnode]=dis+adjweight;
+                pq.push({distarr[adjnode],adjnode});
+            }
+        }
+    }
+    return distarr;
+}
+int main(){
+    int n,e;
+    cout<<"Enter number of node and edge:"<<endl;
+    cin>>n>>e;
+    vector<vector<pair<int,int>>>adj(n);
+    cout<<"Enter  node node weight:"<<endl;
+    for(int i=0;i<e;i++){
+        int u,v,w;
+        cin>>u>>v>>w;
+        adj[u].push_back({v,w});
+        adj[v].push_back({u,w});
+    }
+    int src;
+    cout<<"Enter  source"<<endl;
+    cin>>src;
+    vector<int>ans=solve(adj,n,src);
+    for(int i=0;i<n;i++){
+        cout<<0<<"->"<<i<<"->"<<ans[i]<<endl;
+    }
+    return 0;
 }
